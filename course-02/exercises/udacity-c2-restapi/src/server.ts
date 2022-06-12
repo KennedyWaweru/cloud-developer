@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 
 import { V0MODELS } from './controllers/v0/model.index';
 
+import cors from 'cors';
 
 (async () => {
   await sequelize.addModels(V0MODELS);
@@ -16,11 +17,24 @@ import { V0MODELS } from './controllers/v0/model.index';
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen
   
+  // add a list of allowed origins
+  const allowedOrigins = [
+    'http://localhost:8100', // local development
+    'http://my-080220473863-bucket.s3-website-us-east-1.amazonaws.com' // ionic frontend on s3 bucket
+  ];
+  const options : cors.CorsOptions = {
+    origin: allowedOrigins
+  };
+
+  // pass these options to cors
+  app.use(cors(options))
+
   app.use(bodyParser.json());
 
   //CORS Should be restricted
   app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+    //res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+    //res.header("Access-Control-Allow-Origin", "http://udagram-waweru-dev.us-east-1.elasticbeanstalk.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
   });
