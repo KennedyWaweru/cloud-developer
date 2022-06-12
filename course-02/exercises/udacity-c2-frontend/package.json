@@ -1,12 +1,13 @@
 {
   "name": "udacity-c2-frontend",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Kennedy Waweru",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "aws s3 sync ./www s3://my-080220473863-bucket",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
