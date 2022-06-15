@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { Express, Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
 (async () => {
 
   // Init the Express application
-  const app = express();
+  const app: Express = express();
 
   // Set the network port
   const port = process.env.PORT || 8082;
@@ -29,8 +29,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
 
-  app.get("/filteredimage", async ( req, res) => {
-    let img_url = req.query.image_url;
+  app.get("/filteredimage", async ( req: Request, res: Response) => {
+    let img_url: string = req.query.image_url;
     if(!img_url){
       return res.status(400).send('Image url is required')
     }
@@ -43,7 +43,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
           deleteLocalFiles([img_path])
         }
       })
-    }).catch((message)=>{
+    }).catch((message: string)=>{
       console.log("Catch "+message);
       return res.status(422).send("Unable to filter image: " + img_url + message);
     });  
@@ -52,7 +52,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( req: Request, res: Response ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
