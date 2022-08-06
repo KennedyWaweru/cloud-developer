@@ -54,6 +54,11 @@ export class ApiService {
   async upload(endpoint: string, file: File, payload: any): Promise<any> {
     const signed_url = (await this.get(`${endpoint}/signed-url/${file.name}`)).url;
 
+    const s3_bucket = 'https://udagram-waweru-dev.s3.amazonaws.com/'
+    const eb_filter = 'http://image-filter-waweru-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url='
+    const filterImg = eb_filter + s3_bucket + file.name;
+    const fileName = new HttpRequest('GET',filterImg)
+    console.log(fileName)
     const headers = new HttpHeaders({'Content-Type': file.type});
     const req = new HttpRequest( 'PUT', signed_url, file,
                                   {

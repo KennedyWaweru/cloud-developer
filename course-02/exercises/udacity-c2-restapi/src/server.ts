@@ -20,6 +20,7 @@ import cors from 'cors';
   // add a list of allowed origins
   const allowedOrigins = [
     'http://localhost:8100', // local development
+    'http://localhost:4200',
     'http://my-080220473863-bucket.s3-website-us-east-1.amazonaws.com' // ionic frontend on s3 bucket
   ];
   const options : cors.CorsOptions = {
